@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Common;
 using MigrationsTest.Repository;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace MigrationsTest
 {
@@ -258,6 +260,55 @@ namespace MigrationsTest
                 {
                     Console.WriteLine($"{a.number} {a.fullname} - {a.Team.title} {a.Team.city}");
                 }
+
+
+                //Добавление матча
+                GenericRepository<Match> repoMatch = new GenericRepository<Match>(db);
+                //Match m1 = new Match()
+                //{
+                //    start = new DateTime(2020, 7, 20, 18, 30, 0),
+                //    arena = "Stamford Bridge",
+                //    locationCity = "London",
+                //    guestTeamId = 1,
+                //    homeTeamId = 2 
+                //};
+                //Match m2 = new Match()
+                //{
+                //    start = new DateTime(2020, 7, 28, 21, 00, 0),
+                //    arena = "Santiago Bernabeu",
+                //    locationCity = "Madrid",
+                //    guestTeamId = 2,
+                //    homeTeamId = 1
+                //};
+                //repoMatch.Create(m1);
+                //repoMatch.Create(m2);
+
+                //Удаление матчей
+                var mtodelete = db.Matches.Where(p => p.id < 3).ToList();
+                foreach(Match m in mtodelete) repoMatch.Remove(m);
+
+                var allmatches = db.Matches.Include(g=>g.guestTeam).Include(h=>h.homeTeam).ToList();
+                foreach (Match a in allmatches)
+                {
+                    Console.WriteLine($"{a.locationCity} {a.arena} {a.start}");
+                    Console.WriteLine($" {a.homeTeam.title} {a.homeScore} - {a.guestScore} {a.guestTeam.title}");
+                }
+                Console.WriteLine("____________________________________");
+
+                async Task GetObjectsAsync()
+                {
+                    using (db)
+                    {
+                        await db.Players.ForEachAsync(p =>
+                        {
+                            Console.WriteLine("------------------------------");
+                            Console.WriteLine("{0} {1}", p.number, p.fullname);
+                        });
+                    }
+                }
+
+                Task task = GetObjectsAsync();
+                task.Wait();
             }
             Console.Read();
         }

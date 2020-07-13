@@ -15,9 +15,11 @@ namespace MigrationsTest
         public virtual Coach coach { get; set; }
 
         public ICollection<Tournament> Tournaments { get; set; }
+        public ICollection<Match> Matches { get; set; } 
 
         public Team() {
             Tournaments = new List<Tournament>();
+            Matches = new List<Match>();
         }
     }
 }

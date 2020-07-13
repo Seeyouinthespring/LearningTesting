@@ -22,3 +22,6 @@ C:\Users\colya\source\repos\MigrationsTest\obj\Debug\MigrationsTest.Migrations.a
 C:\Users\colya\source\repos\MigrationsTest\obj\Debug\MigrationsTest.Migrations.addTournamentsTableAndLinkWithTeams.resources
 C:\Users\colya\source\repos\MigrationsTest\obj\Debug\MigrationsTest.Migrations.changeTypesInTournament.resources
 C:\Users\colya\source\repos\MigrationsTest\obj\Debug\MigrationsTest.Migrations.dropUsersTable.resources
+C:\Users\colya\source\repos\MigrationsTest\obj\Debug\MigrationsTest.Migrations.addMatchesTableAndLinkWithTeams.resources
+C:\Users\colya\source\repos\MigrationsTest\obj\Debug\MigrationsTest.Migrations.cascadeDeleteToFalse.resources
+C:\Users\colya\source\repos\MigrationsTest\obj\Debug\MigrationsTest.Migrations.addScoresForMatches.resources
