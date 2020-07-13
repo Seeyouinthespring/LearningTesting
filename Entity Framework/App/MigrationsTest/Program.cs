@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Common;
+using MigrationsTest.Repository;
 
 namespace MigrationsTest
 {
@@ -220,6 +221,43 @@ namespace MigrationsTest
                 var plaaa = db.Database.SqlQuery<Player>("SELECT * FROM Players WHERE fullname LIKE @name", param);
                 foreach (var i in plaaa)
                     Console.WriteLine(i.fullname+"  "+i.number);
+
+
+
+                Console.WriteLine();
+                Console.WriteLine();
+                GenericRepository<Player> repo = new GenericRepository<Player>(db);
+
+                //Добавление через репозиторий
+                //Player ptot = new Player() {fullname="Son Hyn Min", number=9, birthdate= DateTime.Parse("1996-01-10"), TeamId=3 };
+                //repo.Create(ptot);
+
+                //Изменение через репозиторий
+                //Player pl1 = db.Players.Find(1);//now has number=10
+                //Player pl2 = db.Players.Find(10);//now has number=8
+                //pl1.number = 8;
+                //pl2.number = 10;
+                //repo.Update(pl1);
+                //repo.Update(pl2);
+
+                //выборка по условию через репозиторий
+                //IEnumerable<Player> list = repo.Get(x => x.number>10);
+                //foreach (Player a in list)
+                //{
+                //    Console.WriteLine($"{a.number} {a.fullname}");
+                //}
+                //Console.WriteLine("-----------------------------------");
+
+                //тест валидации поля
+                //Player y = new Player() { fullname = "Hugo Lloris", number = 190, birthdate = DateTime.Parse("1990-11-21"), TeamId = 3 };
+                //repo.Create(y);
+
+                //Вывод через репозиторий с include
+                IEnumerable<Player> aaa = repo.GetWithInclude(x => x.Team.city.Equals("London"), p => p.Team);
+                foreach (Player a in aaa)
+                {
+                    Console.WriteLine($"{a.number} {a.fullname} - {a.Team.title} {a.Team.city}");
+                }
             }
             Console.Read();
         }
