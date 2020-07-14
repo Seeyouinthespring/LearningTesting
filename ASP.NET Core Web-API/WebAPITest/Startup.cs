@@ -29,16 +29,12 @@ namespace WebAPITest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebAPIContext>(opt => opt.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddSingleton<ICityRepository, CityRepository>();
+            services.AddDbContext<WebAPIContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ICityRepository, CityRepository>();
             services.AddMvc();
             services.AddControllers();
         }
 
-        //public void addOwnServices(IServiceCollection services) 
-        //{ 
-        //    services.AddScoped<ICityRepository, CityRepository>(); 
-        //}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

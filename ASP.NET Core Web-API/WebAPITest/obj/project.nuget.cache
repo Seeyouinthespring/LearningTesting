@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2Ggb/fIFxsncTVgSv9Ui9rl6OWF2Y2Yb4jwD79hXd1kHsZNEK2T+eUOABT5fQ076qGp2JNgRsVrXcTfEayLhWw==",
+  "dgSpecHash": "S36whTcIukhOFORdhFxDedaR4h7jJeB4DJvCCDA5W3nfdnSM6DHjHvjxQYYl69k6c/z646UepKYMjTykxahFLw==",
   "success": true,
   "projectFilePath": "C:\\Users\\colya\\source\\repos\\WebAPITest\\WebAPITest.csproj",
   "expectedPackageFiles": [
@@ -12,8 +12,10 @@
     "C:\\Users\\colya\\.nuget\\packages\\microsoft.entityframeworkcore\\3.1.5\\microsoft.entityframeworkcore.3.1.5.nupkg.sha512",
     "C:\\Users\\colya\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\3.1.5\\microsoft.entityframeworkcore.abstractions.3.1.5.nupkg.sha512",
     "C:\\Users\\colya\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\3.1.5\\microsoft.entityframeworkcore.analyzers.3.1.5.nupkg.sha512",
+    "C:\\Users\\colya\\.nuget\\packages\\microsoft.entityframeworkcore.design\\3.1.5\\microsoft.entityframeworkcore.design.3.1.5.nupkg.sha512",
     "C:\\Users\\colya\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.1.5\\microsoft.entityframeworkcore.relational.3.1.5.nupkg.sha512",
     "C:\\Users\\colya\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\3.1.5\\microsoft.entityframeworkcore.sqlserver.3.1.5.nupkg.sha512",
+    "C:\\Users\\colya\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\3.1.5\\microsoft.entityframeworkcore.tools.3.1.5.nupkg.sha512",
     "C:\\Users\\colya\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.5\\microsoft.extensions.caching.abstractions.3.1.5.nupkg.sha512",
     "C:\\Users\\colya\\.nuget\\packages\\microsoft.extensions.caching.memory\\3.1.5\\microsoft.extensions.caching.memory.3.1.5.nupkg.sha512",
     "C:\\Users\\colya\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.5\\microsoft.extensions.configuration.3.1.5.nupkg.sha512",

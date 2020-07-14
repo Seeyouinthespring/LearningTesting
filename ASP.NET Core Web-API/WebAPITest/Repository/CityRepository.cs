@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+//using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -10,9 +12,9 @@ namespace WebAPITest.Repository
 {
     public class CityRepository: ICityRepository
     {
-        DbContext _context;
+        WebAPIContext _context;
         DbSet<City> _dbSet;
-        public CityRepository(DbContext context)
+        public CityRepository(WebAPIContext context)
 
         {
             _context = context;
@@ -26,7 +28,16 @@ namespace WebAPITest.Repository
         }
         public City FindById(int id)
         {
-            return _dbSet.Find(id);
+            var cities = _dbSet.AsNoTracking<City>().Where(ent => ent.id == id);
+            City a= new City();
+            foreach (City c in cities)
+                a = c;
+
+            //var c = _dbSet.AsNoTracking().Where(ent => ent.id == id);
+            //City city = (City)c;
+            //var ct = _context.Find<City>(id);
+            //return _dbSet.Find(id);
+            return a;
         }
         public IEnumerable<City> Get()
         {
@@ -45,7 +56,10 @@ namespace WebAPITest.Repository
         public void Update(City item)
 
         {
-            _context.Entry(item).State = EntityState.Modified;
+            //_context.Set<City>().Update(item);
+            //_context.Entry(item).CurrentValues.SetValues(item); //.State = EntityState.Modified;
+            _context.Entry<City>(item).State = EntityState.Modified;
+            //_context.Cities.Attach(item);
             _context.SaveChanges();
         }
         public IEnumerable<City> GetWithInclude(params Expression<Func<City, object>>[] includeProperties)

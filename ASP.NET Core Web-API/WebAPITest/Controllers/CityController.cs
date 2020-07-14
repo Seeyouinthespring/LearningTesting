@@ -28,7 +28,7 @@ namespace WebAPITest.Controllers
         }
 
         // GET api/<CityController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}",Name ="GetCityById")]
         public IActionResult Get(int id)
         {
             var item = _cityRepository.FindById(id);
@@ -48,24 +48,43 @@ namespace WebAPITest.Controllers
                 return BadRequest();
             }
             _cityRepository.Create(item);
-            return CreatedAtRoute("GetTodo", new { id = item.name }, item);
+            return CreatedAtRoute("GetCityById", new { item.id }, item);
+        }
+
+        // PATCH api/<CityController>/5
+        [HttpPatch("{id}")]
+        public IActionResult Update(int id, [FromBody] City item)
+        {
+            if (item == null)
+            {
+                return BadRequest();
+            }
+
+            var city = _cityRepository.FindById(id);
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            item.id = id;
+            _cityRepository.Update(item);
+            return new NoContentResult();
         }
 
         // PUT api/<CityController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] City item)
+        public IActionResult UpdatePut(int id, [FromBody] City item)
         {
             if (item == null || item.id != id)
             {
                 return BadRequest();
             }
 
-            var todo = _cityRepository.FindById(id);
-            if (todo == null)
+            var city = _cityRepository.FindById(id);
+            if (city == null)
             {
                 return NotFound();
             }
-
             _cityRepository.Update(item);
             return new NoContentResult();
         }
