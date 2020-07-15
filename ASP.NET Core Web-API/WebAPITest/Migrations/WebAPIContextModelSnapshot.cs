@@ -15,7 +15,7 @@ namespace WebAPITest.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.5")
+                .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,6 +29,9 @@ namespace WebAPITest.Migrations
                     b.Property<float>("area")
                         .HasColumnType("real");
 
+                    b.Property<int>("countryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("foundation")
                         .HasColumnType("datetime2");
 
@@ -40,6 +43,8 @@ namespace WebAPITest.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("id");
+
+                    b.HasIndex("countryId");
 
                     b.ToTable("Cities");
                 });
@@ -75,6 +80,9 @@ namespace WebAPITest.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("cityId")
+                        .HasColumnType("int");
+
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
@@ -83,7 +91,25 @@ namespace WebAPITest.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("cityId");
+
                     b.ToTable("Sightseens");
+                });
+
+            modelBuilder.Entity("WebAPITest.Models.City", b =>
+                {
+                    b.HasOne("WebAPITest.Models.Country", "country")
+                        .WithMany("Cities")
+                        .HasForeignKey("countryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebAPITest.Models.Sightseen", b =>
+                {
+                    b.HasOne("WebAPITest.Models.City", "city")
+                        .WithMany("Sightseens")
+                        .HasForeignKey("cityId");
                 });
 #pragma warning restore 612, 618
         }

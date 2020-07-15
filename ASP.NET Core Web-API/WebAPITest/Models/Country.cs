@@ -15,5 +15,7 @@ namespace WebAPITest.Models
         public string officialLanguage { get; set; }
         public string flagImgUrl { get; set; }
 
+        public List<City> Cities { get; set; }
+
     }
 }

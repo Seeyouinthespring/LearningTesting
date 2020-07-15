@@ -28,7 +28,7 @@ namespace WebAPITest.Controllers
         }
 
         // GET api/<CityController>/5
-        [HttpGet("{id}",Name ="GetCityById")]
+        [HttpGet("{id}", Name = "GetCityById")]
         public IActionResult Get(int id)
         {
             var item = _cityRepository.FindById(id);

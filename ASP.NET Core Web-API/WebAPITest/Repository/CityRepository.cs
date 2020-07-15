@@ -28,16 +28,11 @@ namespace WebAPITest.Repository
         }
         public City FindById(int id)
         {
-            var cities = _dbSet.AsNoTracking<City>().Where(ent => ent.id == id);
-            City a= new City();
-            foreach (City c in cities)
-                a = c;
-
+            return  _dbSet.AsNoTracking<City>().FirstOrDefault(ent=>ent.id==id);
             //var c = _dbSet.AsNoTracking().Where(ent => ent.id == id);
             //City city = (City)c;
             //var ct = _context.Find<City>(id);
             //return _dbSet.Find(id);
-            return a;
         }
         public IEnumerable<City> Get()
         {
@@ -66,8 +61,7 @@ namespace WebAPITest.Repository
         {
             return Include(includeProperties).ToList();
         }
-        public IEnumerable<City> GetWithInclude(Func<City, bool> predicate,
-            params Expression<Func<City, object>>[] includeProperties)
+        public IEnumerable<City> GetWithInclude(Func<City, bool> predicate, params Expression<Func<City, object>>[] includeProperties)
         {
             var query = Include(includeProperties);
             return query.Where(predicate).ToList();
