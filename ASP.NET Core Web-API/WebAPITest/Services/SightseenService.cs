@@ -77,5 +77,15 @@ namespace WebAPITest.Services
         {
             return commonRepositoryInclude.GetByCondition(expression);
         }
+
+        public async Task<Sightseen> GetSightByIdAsync(int id)
+        {
+            return await commonRepository.FindByIdAsync<Sightseen>(id);
+        }
+
+        public async Task<Sightseen> GetSightByConditionAsyncNoTracking(Expression<Func<Sightseen, bool>> expression)
+        {
+            return await commonRepository.FindByConditionAsyncNoTracking<Sightseen>(expression);
+        }
     }
 }

@@ -1,7 +1,7 @@
-﻿//using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+//using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -70,6 +70,16 @@ namespace WebAPITest.Repository
         {
             _context.UpdateRange(entitiesToUpdate);
             _context.SaveChanges();
+        }
+
+        public async Task<T1> FindByIdAsync<T1>(int id) where T1 : class
+        {
+            return await _context.Set<T1>().FindAsync(id);
+        }
+
+        public async Task<T1> FindByConditionAsyncNoTracking<T1>(Expression<Func<T1, bool>> condition) where T1 : class
+        {
+            return await _context.Set<T1>().AsNoTracking().FirstOrDefaultAsync(condition);
         }
     }
 }

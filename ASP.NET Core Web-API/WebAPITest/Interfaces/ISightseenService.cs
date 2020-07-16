@@ -23,5 +23,9 @@ namespace WebAPITest.Services
         public IEnumerable<Sightseen> GetSightsWithEverything();
 
         public IEnumerable<Sightseen> GetSightsWithEverythingByCondition(Expression<Func<Sightseen, bool>> expression);
+
+        public Task<Sightseen> GetSightByIdAsync(int id);
+
+        public Task<Sightseen> GetSightByConditionAsyncNoTracking(Expression<Func<Sightseen, bool>> expression);
     }
 }

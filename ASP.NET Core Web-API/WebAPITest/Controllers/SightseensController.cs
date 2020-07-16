@@ -57,11 +57,12 @@ namespace WebAPITest.Controllers
 
         // PUT api/<SightseensController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Sightseen item)
+        public /*async Task<*/IActionResult/*>*/ Put(int id, [FromBody] Sightseen item)
         {
+            //Sightseen s = await _service.GetSightByConditionAsyncNoTracking(x=>x.id==id);
             if (id != item.id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             _service.UpdateSight(item);
@@ -104,6 +105,18 @@ namespace WebAPITest.Controllers
         public IEnumerable<Sightseen> GetWithEverythingByCondition(int param)
         {
             return _service.GetSightsWithEverythingByCondition(x=>x.city.country.population>param);
+        }
+
+        [HttpGet("byidasync/{id}")]
+        public async Task<Sightseen> GetByIdAssync(int id)
+        {
+            return await _service.GetSightByIdAsync(id);
+        }
+
+        [HttpGet("byidasyncnotracking/{id}")]
+        public async Task<Sightseen> GetSightWithConditionNoTrackingAssync(int id)
+        {
+            return await _service.GetSightByConditionAsyncNoTracking(x=>x.id==id);
         }
     }
 }
