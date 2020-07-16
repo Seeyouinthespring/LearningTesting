@@ -15,27 +15,25 @@ namespace WebAPITest.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly ICommonRepository<Country> _repo;
-        private readonly WebAPIContext _context;
+        private readonly ICountryService countryService;
 
-        public CountriesController(ICommonRepository<Country> repo, WebAPIContext context)
+        public CountriesController(ICountryService serv)
         {
-            _repo = repo;
-            _context = context;
+            countryService = serv;
         }
 
         // GET: api/Countries
         [HttpGet(Name = "GetCountries")]
         public IEnumerable<Country> GetCountries()
         {
-            return _repo.Get();
+            return countryService.GetCountries();
         }
 
         // GET: api/Countries/5
         [HttpGet("{id}", Name = "GetCountryById")]
         public IActionResult GetCountry(int id)
         {
-            Country country = _repo.FindById(id);
+            Country country = countryService.FindCountryById(id);
 
             if (country == null)
             {
@@ -56,7 +54,7 @@ namespace WebAPITest.Controllers
                 return BadRequest();
             }
 
-            _repo.Update(country);
+            countryService.UpdateCountry(country);
 
             return CreatedAtRoute("GetCountryById", new { country.id }, country);
         }
@@ -70,7 +68,7 @@ namespace WebAPITest.Controllers
             {
                 return BadRequest();
             }
-            _repo.Create(country);
+            countryService.CreateCountry(country);
             return CreatedAtRoute("GetCountryById", new { country.id }, country);
         }
 
@@ -78,36 +76,47 @@ namespace WebAPITest.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteCountry(int id)
         {
-            var country = _repo.FindById(id);
+            var country = countryService.FindCountryById(id);
             if (country == null)
             {
                 return NotFound();
             }
 
-            _repo.Remove(country);
+            countryService.RemoveCountry(country);
             return CreatedAtRoute("GetCountryById", new { country.id }, country);
         }
 
         [HttpPost(Name = "InsertManyCountries")]
         [Route("addManyCountries")]
-        public ActionResult<List<Country>> CreateCountries([FromBody] List<Country> list, int something) 
+        public ActionResult<List<Country>> CreateCountries([FromBody] List<Country> list, int something)
         {
-            _repo.CreateAll(list);
+            countryService.CreateListCountries(list);
             return CreatedAtAction("GetCountries", list);
         }
 
-        [HttpGet("pop/{population}", Name ="getCountriesWithPopulation")]
+        [HttpGet("pop/{population}", Name = "getCountriesWithPopulation")]
         //[Route("pop/{population}")]
         public IEnumerable<Country> getCountriesWithNumberOfPeopleMoreThan(int population)
         {
-            return _repo.GetByCondition(p=>p.population>population);
+            return countryService.GetCountriesByCondition(p => p.population > population);
         }
 
-        [HttpGet("wcity")]
+        [HttpGet("everything")]
         public IEnumerable<Country> getCountriesWithCities()
         {
-            //return _context.Countries.Include(x => x.Cities).ToList();
-            return _repo.GetWithInclude(z=>z.Cities).ToList();
+            return countryService.GetCountriesWithEverything();
+        }
+
+        [HttpGet("condition/{param}")]
+        public IEnumerable<Country> getCountriesWithEverythinfByCondition(int param)
+        {
+            return countryService.GetCountriesWithEverythingByCondition(x=>x.population<param);
+        }
+
+        [HttpGet("everything/{id}")]
+        public Country getCountriesWithCities(int id)
+        {
+            return countryService.FindCountryByIdWithEverything(id);
         }
     }
 }

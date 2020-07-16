@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebAPITest.Repository;
 using WebAPITest.Models;
+using WebAPITest.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,24 +15,25 @@ namespace WebAPITest.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly ICityRepository _cityRepository;
+        //private readonly ICityRepository _cityRepository;
+        private readonly ICityService _cityService;
 
-        public CityController(ICityRepository r)
+        public CityController(ICityService cityService)
         {
-            _cityRepository = r;
+            _cityService = cityService;
         }
         // GET: api/<CityController>
         [HttpGet]
         public IEnumerable<City> Get()
         {
-            return _cityRepository.Get();
+            return _cityService.Get();
         }
 
         // GET api/<CityController>/5
         [HttpGet("{id}", Name = "GetCityById")]
         public IActionResult Get(int id)
         {
-            var item = _cityRepository.FindById(id);
+            var item = _cityService.FindById(id);
             if (item == null)
             {
                 return NotFound();
@@ -47,7 +49,7 @@ namespace WebAPITest.Controllers
             {
                 return BadRequest();
             }
-            _cityRepository.Create(item);
+            _cityService.Create(item);
             return CreatedAtRoute("GetCityById", new { item.id }, item);
         }
 
@@ -60,14 +62,13 @@ namespace WebAPITest.Controllers
                 return BadRequest();
             }
 
-            var city = _cityRepository.FindById(id);
-            if (city == null)
+            if (id != item.id)
             {
                 return NotFound();
             }
 
             item.id = id;
-            _cityRepository.Update(item);
+            _cityService.Update(item);
             return new NoContentResult();
         }
 
@@ -75,32 +76,43 @@ namespace WebAPITest.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdatePut(int id, [FromBody] City item)
         {
-            if (item == null || item.id != id)
+            if (item == null)
             {
                 return BadRequest();
             }
 
-            var city = _cityRepository.FindById(id);
-            if (city == null)
+            if (id != item.id)
             {
                 return NotFound();
             }
-            _cityRepository.Update(item);
+            _cityService.Update(item);
             return new NoContentResult();
         }
 
         // DELETE api/<CityController>/5
         [HttpDelete("{id}")]
-        public City Delete(int id)
+        public IActionResult Delete(int id)
         {
-            City todo = _cityRepository.FindById(id);
-            if (todo == null)
+            var city = _cityService.FindById(id);
+            if (city == null)
             {
-                return null;
+                return NotFound();
             }
 
-            return _cityRepository.Remove(todo);
-            //return new NoContentResult();
+            _cityService.Remove(city);
+            return CreatedAtRoute("GetCountryById", new { city.id }, city);
+        }
+
+        [HttpGet("everything")]
+        public IEnumerable<City> GetWithEverything()
+        {
+            return _cityService.GetEverything();
+        }
+
+
+        [HttpGet("everything/{id}")]
+        public City GetEverythingById(int id) {
+            return _cityService.GetEverythingById(id);
         }
     }
 }

@@ -32,6 +32,15 @@ namespace WebAPITest.Repository
         }
         public T FindById(int id)
         {
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+            //
+
             return _context.Set<T>().Find(id);
         }
 
@@ -61,13 +70,6 @@ namespace WebAPITest.Repository
         {
             _context.UpdateRange(entitiesToUpdate);
             _context.SaveChanges();
-        }
-        public IQueryable<T> GetWithInclude(params Expression<Func<T, object>>[] includeProperties) 
-        {
-            IQueryable<T> query = _context.Set<T>();
-            return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-            //return Include(includeProperties).ToList();
-            //return Include(includeProperties).ToList();
         }
     }
 }

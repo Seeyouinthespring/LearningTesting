@@ -16,6 +16,5 @@ namespace WebAPITest.Interfaces
         public void Remove(T item);
         public void Update(T item);
         public void UpdateAll(List<T> entitiesToUpdate);
-        public IQueryable<T> GetWithInclude(params  Expression<Func<T, object>>[] includeProperties);
     }
 }

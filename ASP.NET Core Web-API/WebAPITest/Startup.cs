@@ -15,6 +15,7 @@ using WebAPITest.Models;
 using WebAPITest.Repository;
 using System.Data.Entity;
 using WebAPITest.Interfaces;
+using WebAPITest.Services;
 
 namespace WebAPITest
 {
@@ -31,7 +32,10 @@ namespace WebAPITest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WebAPIContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<ICityService,CityService>();
+            services.AddScoped<ISightseenService, SightseenService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped(typeof(CommonRepositoryInclude<>));
             services.AddScoped(typeof(ICommonRepository<>), typeof(CommonRepository<>));
             services.AddMvc();
             services.AddControllers().AddNewtonsoftJson(options =>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
