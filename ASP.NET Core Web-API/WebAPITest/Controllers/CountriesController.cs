@@ -86,8 +86,7 @@ namespace WebAPITest.Controllers
             return CreatedAtRoute("GetCountryById", new { country.id }, country);
         }
 
-        [HttpPost(Name = "InsertManyCountries")]
-        [Route("addManyCountries")]
+        [HttpPost("addManyCountries", Name = "InsertManyCountries")]
         public ActionResult<List<Country>> CreateCountries([FromBody] List<Country> list, int something)
         {
             countryService.CreateListCountries(list);
@@ -95,7 +94,6 @@ namespace WebAPITest.Controllers
         }
 
         [HttpGet("pop/{population}", Name = "getCountriesWithPopulation")]
-        //[Route("pop/{population}")]
         public IEnumerable<Country> getCountriesWithNumberOfPeopleMoreThan(int population)
         {
             return countryService.GetCountriesByCondition(p => p.population > population);

@@ -10,7 +10,7 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Repository
 {
-    public class CommonRepository<T> : ICommonRepository<T> where T : class
+    public class CommonRepository<T> where T : class
     {
         protected WebAPIContext _context;
 
@@ -32,15 +32,6 @@ namespace WebAPITest.Repository
         }
         public T FindById(int id)
         {
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-
             return _context.Set<T>().Find(id);
         }
 

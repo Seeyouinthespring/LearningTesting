@@ -36,7 +36,8 @@ namespace WebAPITest
             services.AddScoped<ISightseenService, SightseenService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped(typeof(CommonRepositoryInclude<>));
-            services.AddScoped(typeof(ICommonRepository<>), typeof(CommonRepository<>));
+            services.AddScoped(typeof(CommonRepository<>));
+            services.AddSwaggerGen();
             services.AddMvc();
             services.AddControllers().AddNewtonsoftJson(options =>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
@@ -59,6 +60,16 @@ namespace WebAPITest
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "api-docs/{documentName}/swagger.json";
+            });
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/api-docs/v1/swagger.json", "My API V1");
             });
         }
     }

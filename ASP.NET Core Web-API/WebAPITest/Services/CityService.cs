@@ -10,7 +10,7 @@ using WebAPITest.Repository;
 
 namespace WebAPITest.Services
 {
-    public class CityService : /*ICommonRepository<City> ,*/ ICityService
+    public class CityService : ICityService
     {
 
         private readonly CommonRepositoryInclude<City> _includeRepo;
