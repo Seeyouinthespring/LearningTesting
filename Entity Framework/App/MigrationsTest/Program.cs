@@ -8,6 +8,7 @@ using System.Data.Common;
 using MigrationsTest.Repository;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Data.SqlClient;
 
 namespace MigrationsTest
 {
@@ -309,6 +310,15 @@ namespace MigrationsTest
 
                 Task task = GetObjectsAsync();
                 task.Wait();
+
+                ApplicationContex dbc = new ApplicationContex();
+
+                SqlParameter param1 = new SqlParameter("@num", 2);
+                SqlParameter param2 = new SqlParameter("@name", "Kourt Zouma");
+                SqlParameter param3 = new SqlParameter("@team", 2);
+                object[] arr = new[] { param1, param2, param3 };
+                int res = dbc.Database.ExecuteSqlCommand("AddPlayerWithUniqueCheck @num, @name, @team", arr);
+                Console.WriteLine("/////////////////////{0}/////////////////////", res);
             }
             Console.Read();
         }
