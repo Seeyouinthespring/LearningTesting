@@ -20,6 +20,8 @@ namespace WebAPITest.Services
         public IQueryable<City> GetEverything();
         public City GetEverythingById(int id);
 
+
+        public int CreateUnique(City item);
     }
 
 }

@@ -157,6 +157,7 @@ C:\Users\colya\source\repos\WebAPITest\bin\Debug\netcoreapp3.1\Microsoft.OpenApi
 C:\Users\colya\source\repos\WebAPITest\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\colya\source\repos\WebAPITest\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\colya\source\repos\WebAPITest\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\colya\source\repos\WebAPITest\bin\Debug\netcoreapp3.1\WebAPITest.xml
 C:\Users\colya\source\repos\WebAPITest\obj\Debug\netcoreapp3.1\WebAPITest.csproj.CoreCompileInputs.cache
 C:\Users\colya\source\repos\WebAPITest\obj\Debug\netcoreapp3.1\WebAPITest.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\colya\source\repos\WebAPITest\obj\Debug\netcoreapp3.1\WebAPITest.MvcApplicationPartsAssemblyInfo.cache

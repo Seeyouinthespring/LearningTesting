@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using WebAPITest.Interfaces;
 using WebAPITest.Models;
@@ -15,11 +16,13 @@ namespace WebAPITest.Services
 
         private readonly CommonRepositoryInclude<City> _includeRepo;
         private readonly CommonRepository<City> _repo;
+        private readonly CityHelpRepository _cityRepo;
 
         public CityService(WebAPIContext context)
         {
             _includeRepo = new CommonRepositoryInclude<City>(context, GetEntities);
             _repo = new CommonRepository<City>(context);
+            _cityRepo = new CityHelpRepository(context);
         }
 
         private IQueryable<City> GetEntities(IQueryable<City> query)
@@ -75,6 +78,11 @@ namespace WebAPITest.Services
         public City GetEverythingById(int id)
         {
             return _includeRepo.GetById(x=>x.id==id);
+        }
+
+        public int CreateUnique(City item)
+        {
+           return _cityRepo.CreateUnique(item);
         }
     }
 }

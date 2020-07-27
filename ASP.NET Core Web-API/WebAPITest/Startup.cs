@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ using WebAPITest.Repository;
 using System.Data.Entity;
 using WebAPITest.Interfaces;
 using WebAPITest.Services;
+using Microsoft.OpenApi.Models;
 
 namespace WebAPITest
 {
@@ -40,6 +43,33 @@ namespace WebAPITest
             services.AddSwaggerGen();
             services.AddMvc();
             services.AddControllers().AddNewtonsoftJson(options =>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "beta",
+                    Title = "GEOOO",
+                    Description = "A geoinformation repository API",
+                    TermsOfService = new Uri("https://vk.com/id118971987"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Nick Zhuravlyov",
+                        Email = "colya.juravlyov2011@ya.ru",
+                        Url = new Uri("https://vk.com/id118971987"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://vk.com/id118971987"),
+                    }
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
 
@@ -70,6 +100,7 @@ namespace WebAPITest
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/api-docs/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
             });
         }
     }

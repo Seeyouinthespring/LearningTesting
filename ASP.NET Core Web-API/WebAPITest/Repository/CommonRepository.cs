@@ -72,5 +72,6 @@ namespace WebAPITest.Repository
         {
             return await _context.Set<T1>().AsNoTracking().FirstOrDefaultAsync(condition);
         }
+
     }
 }

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebAPITest</name>
+    </assembly>
+    <members>
+        <member name="M:WebAPITest.Controllers.CityController.Get">
+            <summary>
+            Get all cities without sights and countries info 
+            </summary>
+        </member>
+        <member name="M:WebAPITest.Controllers.CityController.Get(System.Int32)">
+            <summary>
+            Get info about one city  without sights and countries info 
+            </summary>
+            <param name="id"> id of the city</param> 
+        </member>
+        <member name="M:WebAPITest.Controllers.CityController.Create(WebAPITest.Models.City)">
+             <summary>
+             Creates a new city with info in the body of request
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Todo
+                 {
+                     "name": "London",
+                     "area": 1295,
+                     "population": 12828565,
+                     "foundation": "1000-02-12",
+                     "countryId": 2
+                     "code": 19
+                 }
+            
+             </remarks>
+             <param name="item">Represents a city item with all indormation from the body of request</param>
+             <returns>A newly created City item</returns>
+             <response code="201">Returns the newly created item</response>
+             <response code="400">If the item is null</response>
+        </member>
+        <member name="P:WebAPITest.Models.City.name">
+            <summary>
+            The official name of the city
+            </summary>
+            <example>"Moscow"</example>
+        </member>
+        <member name="P:WebAPITest.Models.City.area">
+            <summary>
+            Total area of the city (km^2)
+            </summary>
+            <example>1245</example>
+        </member>
+        <member name="P:WebAPITest.Models.City.population">
+            <summary>
+            The number of people lived in the city
+            </summary>
+            <example>12321898</example>
+        </member>
+        <member name="P:WebAPITest.Models.City.foundation">
+            <summary>
+            The official date of the foundation of the city
+            </summary>
+            <example>1812-04-03</example>
+        </member>
+    </members>
+</doc>

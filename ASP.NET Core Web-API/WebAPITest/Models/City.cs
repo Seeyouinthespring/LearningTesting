@@ -17,6 +17,8 @@ namespace WebAPITest.Models
         /// <example>"Moscow"</example>
         [Required]
         public string name { get; set; }
+        [Required]
+        public int code { get; set; }
         /// <summary>
         /// Total area of the city (km^2)
         /// </summary>

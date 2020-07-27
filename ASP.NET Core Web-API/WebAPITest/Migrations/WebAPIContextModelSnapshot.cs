@@ -29,7 +29,10 @@ namespace WebAPITest.Migrations
                     b.Property<float>("area")
                         .HasColumnType("real");
 
-                    b.Property<int>("countryId")
+                    b.Property<int>("code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("countryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("foundation")
@@ -100,9 +103,7 @@ namespace WebAPITest.Migrations
                 {
                     b.HasOne("WebAPITest.Models.Country", "country")
                         .WithMany("Cities")
-                        .HasForeignKey("countryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("countryId");
                 });
 
             modelBuilder.Entity("WebAPITest.Models.Sightseen", b =>
